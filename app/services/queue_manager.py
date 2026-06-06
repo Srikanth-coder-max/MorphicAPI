@@ -28,8 +28,21 @@ def get_queue_size()->int:
 
     if failed_request_queue is None:
         return 0
-    return failed_request_queue.qsize()    
+    return failed_request_queue.qsize()   
 
+#exit door for item retrieval     
+async def get_from_queue()-> dict:
+
+    global failed_request_queue
+
+    if failed_request_queue is None:
+        failed_request_queue=asyncio.Queue()
+
+    item=await failed_request_queue.get()
+    failed_request_queue.task_done()
+    return item    
+
+   
 
 
 

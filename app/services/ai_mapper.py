@@ -2,6 +2,7 @@ import logging
 import json
 from google import genai
 from google.genai import types
+from app.schemas.vendor import VendorPayloadValidation
 logging.basicConfig(level=logging.INFO)
 
 client = genai.Client()
@@ -14,6 +15,8 @@ You are an automated API middleware data transformer. Your sole job is to repair
 Analyze the original data and the vendor error message to produce a fixed JSON payload matching what the vendor expects.
 Original Broken Payload sent by user:
 {json.dumps(original_payload, indent=2)}
+Target Schema Blueprint:
+{json.dumps(VendorPayloadValidation.model_json_schema(), indent=2)}
 Vendor Error Message received:
 {json.dumps(error_details, indent=2)}
 """

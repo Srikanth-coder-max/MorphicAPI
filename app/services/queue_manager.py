@@ -39,10 +39,19 @@ async def get_from_queue()-> dict:
         failed_request_queue=asyncio.Queue()
 
     item=await failed_request_queue.get()
-    failed_request_queue.task_done()
     return item    
 
-   
+#acknowledgement signal
+def acknowldge_task()-> None:
+
+    """
+    Signals to internal queue 
+    """
+    global failed_request_queue
+    if failed_request_queue is not None:
+        failed_request_queue.task_done()
+
+    
 
 
 
